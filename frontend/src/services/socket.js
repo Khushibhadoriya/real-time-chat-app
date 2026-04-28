@@ -12,7 +12,7 @@ import { io } from 'socket.io-client';
 //
 // Singleton pattern: create once, reuse everywhere
 // ─────────────────────────────────────────────
-
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5003';
 let socket = null;
 
 // Call this ONCE when user logs in
@@ -29,8 +29,9 @@ export const connectSocket = (token) => {
     socket.disconnect();
     socket = null;
   }
+   console.log('🔌 Connecting to:', SOCKET_URL); // ← helpful debug log
   console.log('🔌 Creating new socket connection...');
-  socket = io('http://localhost:5003', {
+  socket = io(SOCKET_URL, {
     // Send JWT token during connection handshake
     // Our socketHandler.js reads this in authenticateSocket()
     auth: { token },

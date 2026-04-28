@@ -14,9 +14,13 @@ import axios from 'axios';
 //   → lets us set headers once (no repeating Authorization header)
 // ─────────────────────────────────────────────
 
+
 // Create axios instance with default config
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5003';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5003/api', // All requests prefix with this
+  baseURL: `${API_URL}/api`,  // ← uses env variable now
   headers: {
     'Content-Type': 'application/json',
   },
